@@ -9,7 +9,8 @@ import axios from "axios";
 class Blog extends Component {
     state = {
         posts: [],
-        selectedID: null
+        selectedID: null,
+        error: false
     }
 
     componentDidMount() {
@@ -24,28 +25,28 @@ class Blog extends Component {
                 });
                 this.setState({ posts: updatedPosts });
                 //console.log(response);
+            }).catch(err => {
+                console.log(err);
+                this.setState({ error: true });
             });
     }
 
     postClickHandler = (id) => {
-        // console.log(id);
-        // const posts =[...this.state.posts];
-        // const post = posts.find(p => p.id === id);
-        // this.setState({viewPost:post});
-        // console.log(post.title);
-        // console.log(post.body);
-        this.setState({selectedID:id});
+        this.setState({ selectedID: id });
     }
 
     render() {
-        const Posts = this.state.posts.map(post => {
-            return <Post 
-                        key={post.id} 
-                        id={post.id} 
-                        title={post.title} 
-                        author={post.author} 
-                        Clicked={()=>this.postClickHandler(post.id)} />
-        });
+        let Posts = <p style={{ textAlign: 'center' }}>Something went wrong!</p>;
+        if (!this.state.error) {
+            Posts = this.state.posts.map(post => {
+                return <Post
+                    key={post.id}
+                    id={post.id}
+                    title={post.title}
+                    author={post.author}
+                    Clicked={() => this.postClickHandler(post.id)} />
+            });
+        }
 
         return (
             <div>
