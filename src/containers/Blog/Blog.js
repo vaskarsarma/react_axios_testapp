@@ -6,6 +6,7 @@ import "./Blog.css";
 
 import Posts from "./Posts/Posts";
 import Newpost from "./NewPost/NewPost";
+import FullPost from "./FullPost/FullPost";
 
 class Blog extends Component {
   render() {
@@ -46,6 +47,7 @@ class Blog extends Component {
 
         <Route path="/" exact component={Posts} />
         <Route path="/new-post" component={Newpost} />
+        <Route path="/:id" component={FullPost} />
       </div>
     );
   }
