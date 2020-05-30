@@ -9,8 +9,8 @@ import "./Posts.css";
 class Posts extends Component {
   state = {
     posts: [],
-    selectedID: null
-    //error: false
+    selectedID: null,
+    error: false
   };
 
   postClickHandler = id => {
@@ -18,6 +18,7 @@ class Posts extends Component {
   };
 
   componentDidMount() {
+    console.log("Posts >> componentDidMount");
     Axios.get("/posts")
       .then(response => {
         const posts = response.data.slice(0, 4);
