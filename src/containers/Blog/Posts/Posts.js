@@ -18,7 +18,7 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-    console.log("Posts >> componentDidMount");
+    //console.log("Posts >> componentDidMount");
     console.log(this.props);
     Axios.get("/posts")
       .then(response => {
