@@ -33,9 +33,7 @@ class NewPost extends Component {
   };
 
   render() {
-    let isRedirected = this.state.submitted ? (
-      <Redirect from='/new-post' to='/' />
-    ) : null;
+    let isRedirected = this.state.submitted ? <Redirect to='/posts' /> : null;
 
     return (
       <div className='NewPost'>
