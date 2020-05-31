@@ -1,13 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 
-import "./NewPost.css";
-import axios from "axios";
+import './NewPost.css';
+import Axios from '../../../axios';
 
 class NewPost extends Component {
   state = {
-    title: "",
-    content: "",
-    author: "Max"
+    title: '',
+    content: '',
+    author: 'Max',
+    submitted: false,
   };
 
   componentDidMount() {
@@ -18,12 +20,12 @@ class NewPost extends Component {
     const data = {
       title: this.state.title,
       body: this.state.content,
-      author: this.state.author
+      author: this.state.author,
     };
-    axios
-      .post(`/posts`, data)
+    Axios.post(`/feed/post`, data)
       .then(response => {
         console.log(response);
+        this.setState({ submitted: true });
       })
       .catch(err => {
         console.log(err);
@@ -31,18 +33,24 @@ class NewPost extends Component {
   };
 
   render() {
+    let isRedirected = this.state.submitted ? (
+      <Redirect from='/new-post' to='/' />
+    ) : null;
+
     return (
-      <div className="NewPost">
+      <div className='NewPost'>
+        {/* <Redirect from='/new-post' to='/' /> */}
+        {isRedirected}
         <h1>Add a Post</h1>
         <label>Title</label>
         <input
-          type="text"
+          type='text'
           value={this.state.title}
           onChange={event => this.setState({ title: event.target.value })}
         />
         <label>Content</label>
         <textarea
-          rows="4"
+          rows='4'
           value={this.state.content}
           onChange={event => this.setState({ content: event.target.value })}
         />
@@ -51,8 +59,8 @@ class NewPost extends Component {
           value={this.state.author}
           onChange={event => this.setState({ author: event.target.value })}
         >
-          <option value="Max">Max</option>
-          <option value="Manu">Manu</option>
+          <option value='Max'>Max</option>
+          <option value='Manu'>Manu</option>
         </select>
         <button onClick={this.savePostHandler}>Add Post</button>
       </div>

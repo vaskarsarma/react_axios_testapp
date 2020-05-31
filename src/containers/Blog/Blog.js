@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 import './Blog.css';
 
@@ -18,12 +18,12 @@ class Blog extends Component {
               <li>
                 {/* <a href="/">Home</a> */}
                 <NavLink
-                  to='/'
+                  to='/posts/'
                   exact
                   //activeClassName="my-test-class"
                   //activeStyle={{ color: 'red' }}
                 >
-                  Home
+                  Posts
                 </NavLink>
               </li>
               <li>
@@ -47,9 +47,11 @@ class Blog extends Component {
             {Route path="/" exact render={() => <Posts />} />
             <Route path="/new-post" exact render={() => <div>New Post</div>} /> */}
         <Switch>
-          <Route path='/' exact component={Posts} />
+          <Route path='/posts/' component={Posts} />
           <Route path='/new-post' component={Newpost} />
-          <Route path='/:id' exact component={FullPost} />
+          {/* Below example to show how to redirect */}
+          {/* <Route path='/' component={Posts} /> */}
+          <Redirect from='/' to='/posts/' />
         </Switch>
       </div>
     );
