@@ -6,9 +6,13 @@ import './Blog.css';
 
 import Posts from './Posts/Posts';
 import Newpost from './NewPost/NewPost';
-import FullPost from './FullPost/FullPost';
+//import FullPost from './FullPost/FullPost';
 
 class Blog extends Component {
+  state = {
+    authn: true,
+  };
+
   render() {
     return (
       <div className='Blog'>
@@ -47,10 +51,12 @@ class Blog extends Component {
             {Route path="/" exact render={() => <Posts />} />
             <Route path="/new-post" exact render={() => <div>New Post</div>} /> */}
         <Switch>
-          <Route path='/posts/' component={Posts} />
-          <Route path='/new-post' component={Newpost} />
+          {this.state.authn ? (
+            <Route path='/new-post' component={Newpost} />
+          ) : null}
           {/* Below example to show how to redirect */}
           {/* <Route path='/' component={Posts} /> */}
+          <Route path='/posts/' component={Posts} />
           <Redirect from='/' to='/posts/' />
         </Switch>
       </div>
