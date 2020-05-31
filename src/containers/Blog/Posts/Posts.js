@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import Post from "../../../components/Post/Post";
 
@@ -12,10 +12,10 @@ class Posts extends Component {
   state = {
     posts: [],
     selectedID: null,
-    error: false,
+    error: false
   };
 
-  postClickHandler = (id) => {
+  postClickHandler = id => {
     console.log("postClickHandler : " + id);
     this.setState({ selectedID: id });
   };
@@ -23,19 +23,19 @@ class Posts extends Component {
   componentDidMount() {
     //console.log("Posts >> componentDidMount");
     console.log(this.props);
-    Axios.get("/posts")
-      .then((response) => {
+    Axios.get("/feed/posts/")
+      .then(response => {
         const posts = response.data.slice(0, 4);
-        const updatedPosts = posts.map((post) => {
+        const updatedPosts = posts.map(post => {
           return {
             ...post,
-            author: "Vaskar",
+            author: "Vaskar"
           };
         });
         this.setState({ posts: updatedPosts });
         //console.log(response);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
         //this.setState({ error: true });
       });
@@ -44,9 +44,9 @@ class Posts extends Component {
   render() {
     let Posts = <p style={{ textAlign: "center" }}>Something went wrong!</p>;
     if (!this.state.error) {
-      Posts = this.state.posts.map((post) => {
+      Posts = this.state.posts.map(post => {
         return (
-          <Link to={'/' + post.id} key={post.id}>
+          <Link to={"/" + post.id} key={post.id}>
             <Post
               key={post.id}
               id={post.id}

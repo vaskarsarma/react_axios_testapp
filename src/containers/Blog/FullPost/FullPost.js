@@ -1,22 +1,28 @@
 import React, { Component } from "react";
 
 import "./FullPost.css";
-import axios from "axios";
+import Axios from "../../../axios";
 
 class FullPost extends Component {
   state = {
     loadedPost: null
-  }
+  };
 
   componentDidMount() {
-    console.log("componentDidMount " + JSON.stringify(this.props));
-    if (this.props.id) {
-      if (!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-        axios.get(`/posts/${this.props.id}`)
+    console.log(this.props);
+    console.log(this.props.match.params.id); // Fetching value from within route
+    const postId = this.props.match.params.id;
+    if (postId) {
+      if (
+        !this.state.loadedPost ||
+        (this.state.loadedPost && this.state.loadedPost.id !== postId)
+      ) {
+        Axios.get(`/feed/post/${postId}`)
           .then(response => {
             console.log(response);
             this.setState({ loadedPost: response.data });
-          }).catch(err => {
+          })
+          .catch(err => {
             console.log(err);
           });
       }
@@ -24,13 +30,14 @@ class FullPost extends Component {
   }
 
   deletePostHandler = () => {
-    axios.delete(`/posts/${this.props.id}`)
+    Axios.delete(`/posts/${this.props.id}`)
       .then(response => {
         console.log(response);
-      }).catch(err => {
+      })
+      .catch(err => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
@@ -45,7 +52,9 @@ class FullPost extends Component {
           <h1>{this.state.loadedPost.title}</h1>
           <p>{this.state.loadedPost.body}</p>
           <div className="Edit">
-            <button onClick={this.deletePostHandler} className="Delete">Delete</button>
+            <button onClick={this.deletePostHandler} className="Delete">
+              Delete
+            </button>
           </div>
         </div>
       );

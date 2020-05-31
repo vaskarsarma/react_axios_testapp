@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
 const axiosinstance = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
-    headers: {
-        //...headers,
-        'Authorization': 'AUTH-TOKEN', // Added just for testing
-        'Content-Type': 'application/json' // Added just for testing
-    }
+  baseURL: "http://localhost:3001/",
+  headers: {
+    //...headers,
+    Authorization: "AUTH-TOKEN", // Added just for testing
+    "Content-Type": "application/json" // Added just for testing
+  }
 });
 // //return (
 // axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com'
