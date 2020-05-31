@@ -25,7 +25,11 @@ class NewPost extends Component {
     Axios.post(`/feed/post`, data)
       .then(response => {
         console.log(response);
-        this.setState({ submitted: true });
+        // Maintain naviation history in browser
+        // this.props.history.push('/posts');
+        // Does not maintain navigation history in browser same as Redirect
+        this.props.history.replace('/posts');
+        //this.setState({ submitted: true });
       })
       .catch(err => {
         console.log(err);
