@@ -57,7 +57,8 @@ class Blog extends Component {
           {/* Below example to show how to redirect */}
           {/* <Route path='/' component={Posts} /> */}
           <Route path='/posts/' component={Posts} />
-          <Redirect from='/' to='/posts/' />
+          <Route render={() => <h1>No Data</h1>} />
+          {/* <Redirect from='/' to='/posts/' /> */}
         </Switch>
       </div>
     );
