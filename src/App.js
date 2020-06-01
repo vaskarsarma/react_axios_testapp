@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       // <BrowserRouter basename='/posts'> //Using basename for base route handling
-      <BrowserRouter basename='/posts'>
+      <BrowserRouter>
         <div className='App'>
           <Blog />
         </div>

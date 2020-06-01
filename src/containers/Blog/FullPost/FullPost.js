@@ -6,14 +6,17 @@ import Axios from '../../../axios';
 class FullPost extends Component {
   state = {
     loadedPost: null,
+    postFound: false,
   };
 
   componentDidMount() {
+    console.log('FullPost -> componentDidMount');
     //console.log(this.props.match.params.id); // Fetching value from within route
     this.loadData();
   }
 
   componentDidUpdate() {
+    console.log('FullPost -> componentDidUpdate');
     this.loadData();
   }
 
@@ -27,8 +30,8 @@ class FullPost extends Component {
       ) {
         Axios.get(`/feed/post/${postId}`)
           .then(response => {
-            console.log(response);
-            this.setState({ loadedPost: response.data });
+            if (Object.keys(response.data).length > 0)
+              this.setState({ loadedPost: response.data, postFound: true });
           })
           .catch(err => {
             console.log(err);
@@ -52,6 +55,10 @@ class FullPost extends Component {
 
     if (this.props.match.params.id) {
       post = <p style={{ textAlign: 'center' }}>Loading...</p>;
+    }
+
+    if (!this.state.postFound) {
+      post = <p style={{ textAlign: 'center' }}>Invalid Post ID - not found</p>;
     }
 
     if (this.state.loadedPost) {
